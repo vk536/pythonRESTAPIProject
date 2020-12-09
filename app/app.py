@@ -63,6 +63,15 @@ def api_edit(id) -> str:
     resp = Response(status=201, mimetype='application/json')
     return resp
 
+@app.route('/api/v1/employees/<int:id>', methods=['DELETE'])
+def api_delete(id) -> str:
+    cursor = mysql.get_db().cursor()
+    sql_delete_query = """DELETE FROM employeeBioStats WHERE id = %s """
+    cursor.execute(sql_delete_query, id)
+    mysql.get_db().commit()
+    resp = Response(status=200, mimetype='application/json')
+    return resp
+
 
 
 
